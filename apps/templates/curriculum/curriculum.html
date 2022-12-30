@@ -1,0 +1,292 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Resume {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{%for profile in profile%}
+
+<div class="container-fluid px-2 px-md-4">
+  <div class="page-header min-height-300 border-radius-xl mt-4"
+  {%if background_link == "None" %}
+    style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+    {% else %}
+    style="background-image: url('{{profile.background_link}}');">
+    {% endif %}
+  </div>
+    <div class="card card-body mx-3 mx-md-4 mt-n6">
+      <div class="row gx-4 mb-2">
+        <div class="col-auto">
+          <div class="avatar avatar-xl position-relative">
+            {%if avatar_link == "None" %}
+            <img src="https://pbs.twimg.com/profile_images/1602808062657658881/V02t4aGQ_400x400.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            {% else %}
+            <img src="{{profile.avatar_link}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            {% endif %}
+          </div>
+          
+        </div>
+        <div class="col-auto my-auto">
+          <div class="h-100">
+          <h5 class="mb-1">
+          {{profile.first_name}} {{profile.last_name}}
+          </h5>
+          <p class="mb-0 font-weight-normal text-sm">{{profile.profession}}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="row">
+            </div>
+                  <div class="col-12 col-xl-4">
+                    <div class="card card-plain h-100">
+                      <div class="card-header pb-0 p-3">
+                        <div class="row">
+                          <div class="col-md-8 d-flex align-items-center">
+                            <h6 class="mb-0">Profile Information</h6>
+                          </div>
+                          <div class="col-md-4 text-end">
+                            <a href="javascript:;">
+                              <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body p-3">
+                        <p class="text-sm">
+                          {{profile.profile_information}}
+                          
+                        </p>
+                        <hr class="horizontal gray-light my-4">
+                        <ul class="list-group">
+                          <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; {{profile.first_name}} {{profile.last_name}}</li>
+                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{profile.mobile}}</li>
+                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{profile.email}}</li>
+                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; {{profile.location}}</li>
+                          <li class="list-group-item border-0 ps-0 pb-0">
+                            <strong class="text-dark text-sm">Social:</strong> &nbsp;
+                            {%for social in profile.social.all %}
+                              <a>
+                                <a href="{{social.link}}">
+                                  <i class="{{social.icone}}"></i>
+                                </a>
+                              </a>
+                            {%endfor%}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xl-4">
+                    <div class="card card-plain h-100">
+                      <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Blog</h6>
+                      </div>
+                      <div class="card-body p-3">
+                        <ul class="list-group">
+                          <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
+                            <div class="avatar me-3">
+                              <img src="{{ ASSETS_ROOT }}/img/kal-visuals-square.jpg" alt="kal" class="border-radius-lg shadow">
+                            </div>
+                            <div class="d-flex align-items-start flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">Sophie B.</h6>
+                              <p class="mb-0 text-xs">Hi! I need more information..</p>
+                            </div>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
+                          </li>
+                          <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                            <div class="avatar me-3">
+                              <img src="{{ ASSETS_ROOT }}/img/marie.jpg" alt="kal" class="border-radius-lg shadow">
+                            </div>
+                            <div class="d-flex align-items-start flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">Anne Marie</h6>
+                              <p class="mb-0 text-xs">Awesome work, can you..</p>
+                            </div>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
+                          </li>
+                          <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                            <div class="avatar me-3">
+                              <img src="{{ ASSETS_ROOT }}/img/ivana-square.jpg" alt="kal" class="border-radius-lg shadow">
+                            </div>
+                            <div class="d-flex align-items-start flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">Ivanna</h6>
+                              <p class="mb-0 text-xs">About files I can..</p>
+                            </div>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
+                          </li>
+                          <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                            <div class="avatar me-3">
+                              <img src="{{ ASSETS_ROOT }}/img/team-4.jpg" alt="kal" class="border-radius-lg shadow">
+                            </div>
+                            <div class="d-flex align-items-start flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">Peterson</h6>
+                              <p class="mb-0 text-xs">Have a great afternoon..</p>
+                            </div>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
+                          </li>
+                          <li class="list-group-item border-0 d-flex align-items-center px-0">
+                            <div class="avatar me-3">
+                              <img src="{{ ASSETS_ROOT }}/img/team-3.jpg" alt="kal" class="border-radius-lg shadow">
+                            </div>
+                            <div class="d-flex align-items-start flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">Nick Daniel</h6>
+                              <p class="mb-0 text-xs">Hi! I need more information..</p>
+                            </div>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  {%endfor%}
+                  <div class="col-12 mt-4">
+                    <div class="mb-5 ps-3">
+                      <h6 class="mb-1">Projects</h6>
+
+                      <p class="text-sm">Projects I'm putting into practice</p>
+                    </div>
+                    <div class="row">
+
+                      {%for project in project%}
+                      
+                      <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                        <div class="card card-blog card-plain">
+                          <div class="card-header p-0 mt-n4 mx-3">
+                            <a class="d-block shadow-xl border-radius-xl">
+                              <img src="{{project.image_link}}" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl" style="height:200px; ">
+                            </a>
+                          </div>
+                          <div class="card-body p-3">
+                            <a href="javascript:;">
+                              <h5>
+                                {{project.name}}
+                              </h5>
+                            </a>
+                            <span class="me-2 text-xs font-weight-bold">{{project.progress}}%</span>
+                            {% if project.progress > 60 %}
+                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{project.progress}}% ; "></div>
+                              {% else %}
+                                {% if project.progress < 40  %}
+                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{project.progress}}% ; "></div>
+                                  {% else %}
+                                    {% if project.progress > 39  %}
+                                      <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{project.progress}}% ; "></div>
+                                    {% endif %}
+                                  {% endif %}
+                              {% endif %}
+                            <p class="mb-4 text-sm">
+                              {{project.description}}
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between">
+                              <a href="project/{{project.id}}">
+                              <button type="button" class="btn btn-outline-primary btn-sm mb-0">View Project</button>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {%endfor%}
+                      <div>
+                      <div style="text-align:center;">
+                        <a href="/project">
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">More</button>
+                        </a>
+                      </div>
+                    </div>
+
+                    </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="row">
+  <div>
+    <hr class="dark horizontal my60">
+  </div>
+<div class="col-lg-2 col-md-12">
+  <div class="card h-100">
+    <div class="card-header pb-0">
+      <h6>Experiences</h6>
+    </div>
+   <div class="card-body p-1">
+      <div class="timeline timeline-one-side">
+        {%for experiences in experiences%}
+          <div class="timeline-block mb-3">
+            <span class="timeline-step">
+              <i class="material-icons text-success text-gradient">{{experiences.experiences_ico}}</i>
+            </span>
+            <div class="timeline-content">
+              <h6 class="text-dark text-sm font-weight-bold mb-0">{{experiences.name}}</h6>
+              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{experiences.start_date}} / {{experiences.end_date}}</p>
+            </div>
+          </div>
+        {%endfor%}
+        <div style="text-align:center;">
+          <a href="/project">
+          <button type="button" class="btn btn-outline-primary btn-sm mb-0">More</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-xl-10 col-sm-12 mb-xl-2 mb-12">
+  <div class="card">
+    <div class="card-header p-3 pt-6">
+      <div class="icon icon-lg icon-shape bg-gradient-info shadow-success text-center border-radius-xl mt-n7 position-absolute">
+        <i class="material-icons opacity-10">map</i>
+          </div>
+            {{m | safe}}
+          </div>
+      <hr class="dark horizontal my-0"> 
+    <div class="card-footer p-2">
+  </div>
+</div>
+
+
+
+
+
+            </div>
+</div>
+      </div>
+</div>
+
+  
+  </div>
+  {% include 'includes/footer.html' %}
+</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script src="{{ ASSETS_ROOT }}/js/plugins/chartjs.min.js"></script>
+
+  <script>
+
+    
+
+
+  
+  </script>
+
+{% endblock javascripts %}

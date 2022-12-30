@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Resume {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    .terminal {
+        background-color: #000000;
+        color: #FFFFFF;
+        border-radius: 10px;
+    }
+    
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card">
+        <div class="card-header pb-0 px-3">
+          <h6 class="mb-0">{{context.blog.name}}</h6>
+        </div>
+        <div class="card-header pb-0 px-3">
+            <p class="mb-0">{{context.blog.description}}</p>
+          </div>
+
+
+        <div class="card-body pt-4 p-3">
+          <ul class="list-group">
+            {%for post in context.blog.posts.all %}
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                {% if post.header != '' %}
+                <h6 class="mb-3 text-sm">{{post.header}}</h6>
+                {% endif %}
+
+                {% if post.video != '' %}
+                <iframe width="560" height="315" src="{{post.video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                {% endif %}
+
+                {% if post.image == ""%}
+                <p></p>
+                {% else %}
+                <img src="{{post.image_link}}" alt="img-blur-shadow" alt="profile_image" class="w-100 border-radius-lg shadow-sm" style="height:200px; width: 200px;" >
+                {% endif %}
+
+
+                {% if post.code != '' %}
+                <h6 class="mb-3 text-sm">commands</h6>
+                <div class="terminal">
+                <h6 class="terminal">{{post.code}}</h6>                       
+                </div>
+                {% endif %}
+
+                {% if post.footer != '' %}
+                <h6 class="mb-3 text-sm">{{post.footer}}</h6>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}
+
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script src="{{ ASSETS_ROOT }}/js/plugins/chartjs.min.js"></script>
+  
+  <script>
+
+  </script>
+
+{% endblock javascripts %}

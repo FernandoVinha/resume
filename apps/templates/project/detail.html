@@ -1,0 +1,190 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Resume {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load qr_code %}
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-xl-6 mb-xl-0 mb-4">
+          <div class="card bg-transparent shadow-xl">
+            <div class="overflow-hidden position-relative border-radius-xl">
+
+              <div class="card-body position-relative z-index-1 p-0">
+                
+                <img src="{{context.project.image_link}}" alt="img-blur-shadow" alt="profile_image" class="w-100 border-radius-lg shadow-sm" style="height:200px; width: 200px;" >
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <div class="card">
+                <div class="card-header mx-4 p-3 text-center">
+                  <div class="icon icon-shape icon-lg bg-gradient-dark shadow text-center border-radius-lg">
+                    <i class="material-icons opacity-10">settings</i>
+                  </div>
+                </div>
+                <div class="card-body pt-0 p-3 text-center">
+                  <h6 class="text-center mb-0">Work</h6>
+                  <h5 class="mb-0">Work Required</h5>
+                  <hr class="horizontal dark my-3">
+                  <h5 class="mb-0"> {{context.project.progress}}%</h5>
+                  {% if context.project.progress > 60 %}
+                  <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.progress}}% ; "></div>
+                    {% else %}
+                      {% if context.project.progress < 40  %}
+                      <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.progress}}% ; "></div>
+                        {% else %}
+                          {% if context.project.progress > 39  %}
+                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.progress}}% ; "></div>
+                          {% endif %}
+                        {% endif %}
+                    {% endif %}
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-6">
+              <div class="card">
+                <div class="card-header mx-4 p-3 text-center">
+                  <div class="icon icon-shape icon-lg bg-gradient-dark shadow text-center border-radius-lg">
+                    <i class="material-icons opacity-10">account_balance_wallet</i>
+                  </div>
+                </div>
+                <div class="card-body pt-0 p-3 text-center">
+                  <h6 class="text-center mb-0">Donations</h6>
+                  <h5 class="mb-0">${{context.project.amount_donated }}</h5>
+                  <hr class="horizontal dark my-3">
+                  <h5 class="mb-0">{{context.project.donation_progress}}%</h5>
+                  {% if context.project.donation_progress > 60 %}
+                  <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.donation_progress}}% ; "></div>
+                    {% else %}
+                      {% if context.project.donation_progress < 40  %}
+                      <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.donation_progress}}% ; "></div>
+                        {% else %}
+                          {% if context.project.donation_progress > 39  %}
+                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style= "width: {{context.project.donation_progress}}% ; "></div>
+                          {% endif %}
+                        {% endif %}
+                    {% endif %}
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-lg-0 mb-4">
+          <div class="card mt-4">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <h6 class="mb-0">Tasks</h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <div class="row">
+                {% for task in context.project.task.all %}
+                <div class="col-md-6 mb-md-0 mb-4">
+                  <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                    <h6 class="mb-0">{{task.title}}</h6>
+                    <h6 class="mb-0 ms-auto text-dark cursor-pointer data-bs-toggle="tooltip"">{{task.status}}</h6>
+
+                  </div>
+                  <span class="mb-2 text-xs">Description:<span class="text-dark font-weight-bold ms-sm-2">{{task.description}}</span></span>
+                  <span class="mb-2 text-xs">Related URL:<span class="text-dark font-weight-bold ms-sm-2">{{task.link }}</span></span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+          <div class="row">
+            <div class="col-6 d-flex align-items-center">
+              <h5 class="mb-0">Donation</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-3 pb-0">
+
+          <ul class="list-group">
+            
+            <div align="center";>
+              <h6 class="mb-0">Biticoin</h6>
+              {% qr_from_text "{{context.project.biticon_request}}" size="L" %}
+              <h6 id="biticon_request">{{context.project.biticon_request}}</h6>
+              <h6 class="mb-0">Paypal</h6>
+              <form action="https://www.paypal.com/donate/?hosted_button_id=WL3YTYJAGLFHN" method="post" target="_top">
+                <!-- Identify your business so that you can collect the payments. -->
+                <input type="hidden" name="business" value="donations@kcparkfriends.org">
+                <!-- Specify details about the contribution -->
+                <input type="hidden" name="no_recurring" value="0">
+                <input type="hidden" name="item_name" value="Friends of the Park">
+                <input type="hidden" name="item_number" value="Fall Cleanup Campaign">
+                <input type="hidden" name="currency_code" value="USD">
+                <!-- Display the payment button. -->
+                <input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate">
+                <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+               </form>
+
+              </div>
+              
+
+              
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card">
+        <div class="card-header pb-0 px-3">
+          <h6 class="mb-0">Project Description</h6>
+        </div>
+        <div class="card-body pt-4 p-3">
+          <ul class="list-group">
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <h6 class="mb-3 text-sm">{{context.project.description2}}</h6>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script src="{{ ASSETS_ROOT }}/js/plugins/chartjs.min.js"></script>
+  
+<script>
+
+
+
+</script>
+
+{% endblock javascripts %}
