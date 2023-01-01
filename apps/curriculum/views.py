@@ -22,7 +22,7 @@ def curriculum(request):
     experiences_map = Experiences.objects.all()
     experiences = Experiences.objects.all().order_by('-end_date')[:10]
     profile =  User.objects.filter(is_superuser=True)
-    map = folium.Map(location= [-22.40,-47.57], zoom_start= 1.8, min_zoom =1.8,max_zoom = 18,)
+    map = folium.Map(location= [0,-20], zoom_start= 3.2, min_zoom =1.8,max_zoom = 18,)
     szt = plugins.ScrollZoomToggler()
     map.add_child(szt)
     blog = Blog.objects.all()[:6]
