@@ -5,5 +5,4 @@ urlpatterns = [
  
     # The home page
     path('', views.curriculum, name='curriculum'),
-    path('relatorio_users', views.relatorio_users, name="relatorio_users"),
 ]

@@ -28,13 +28,14 @@ class Experiences(models.Model):
     start_date =  models.DateField(null = True)
     end_date =  models.DateField(null = True)
     details = models.TextField(null = True)
+    icone = models.CharField(max_length=40,null = True)
     def save(self, *args, **kwargs):
         if self.experience == 'study':
-            icone= 'book'
+            self.icone= 'book'
         if self.experience == 'job':
-            icone= 'business_center'
+            self.icone= 'business_center'
         if self.experience == 'life_experience':
-            icone = 'flight'
+            self.icone = 'flight'
         super(Experiences, self).save(*args, **kwargs)
 
     def __str__(self):
